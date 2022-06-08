@@ -1,0 +1,242 @@
+﻿@page
+@model OrderReturn.HttpApi.Web.Pages.DHLReturnModel
+@{
+	ViewData["Title"] = "DHL";
+    var receiverId = ViewData["ReceiverId"];
+	var orderNumber = ViewData["OrderNumber"];
+}
+<h1>
+    <img src="~/image/logo.png" >
+</h1>
+<section class="box1">
+	<h3 class="lang" key="title1"></h3>
+	<h3 class="lang" key="title2"></h3>
+</section>
+<div class="translate-div">
+	<select class="form-control" id="language">
+		<option value="en">EN</option>
+		<option value="de">DE</option>
+	</select>
+</div>
+<section class="box2">
+	<div class='box2-content'>
+		<h3 class="c-cbr-PageSection-headline lang pleaseEnter" key="pleaseEnter"></h3>
+
+		<form class="container-fluid">
+			<div class="form-group">
+				<label for="exampleInputEmail1" class="required lang orderNumber"  key="orderNumber"></label>
+				<input type="text" class="form-control" id="orderNumber" value="@orderNumber">
+				<input type="text" class="form-control" style="display:none" id="receiverId" value="@receiverId"/>
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1" class="required lang name" key="name"></label>
+				<input type="text" class="form-control" id="name">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1" class="lang telephoneNumber"  key="telephoneNumber"></label>
+				<input type="text" class="form-control" id="telephoneNumber">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1" class="required lang country"  key="country"></label>
+				<select class="form-control" id="country">
+					<option style='display: none'></option>
+					<option value="AUT" name="Austria" key="Austria">Austria</option>
+					<option value="BEL" name="Belgium" key="Belgium">Belgium</option>
+					<option value="BGR" name="Bulgaria" key="Bulgaria">Bulgaria</option>
+					<option value="HRV" name="Croatia" key="Croatia">Croatia</option>
+					<option value="CYP" name="Cyprus" key="Cyprus">Cyprus</option>
+					<option value="CZE" name="Czechia" key="Czechia">Czechia</option>
+					<option value="DNK" name="Denmark" key="Denmark">Denmark</option>
+					<option value="EST" name="Estonia" key="Estonia">Estonia</option>
+					<option value="FIN" name="Finland" key="Finland">Finland</option>
+					<option value="FRA" name="France" key="France">France</option>
+					<option value="DEU" name="Germany" key="Germany">Germany</option>
+					<option value="GRC" name="Greece" key="Greece">Greece</option>
+					<option value="HUN" name="Hungary" key="Hungary">Hungary</option>
+					<option value="IRL" name="Ireland" key="Ireland">Ireland</option>
+					<option value="ITA" name="Irland" key="Irland">Irland</option>
+					<option value="LVA" name="Latvia" key="Latvia">Latvia</option>
+					<option value="LTU" name="Lithuania" key="Lithuania">Lithuania</option>
+					<option value="LUX" name="Luxembourg" key="Luxembourg">Luxembourg</option>
+					<option value="MLT" name="Malta" key="Malta">Malta</option>
+					<option value="NLD" name="Netherlands" key="Netherlands">Netherlands</option>
+					<option value="POL" name="Poland" key="Poland">Poland</option>
+					<option value="PRT" name="Portugal" key="Portugal">Portugal</option>
+					<option value="ROU" name="Romania" key="Romania">Romania</option>
+					<option value="SVK" name="Slovakia" key="Slovakia">Slovakia</option>
+					<option value="SVN" name="Slovenia" key="Slovenia">Slovenia</option>
+					<option value="ESP" name="Spain" key="Spain">Spain</option>
+					<option value="SWE" name="Sweden" key="Sweden">Sweden</option>
+					<option value="CHE" name="Switzerland" key="Switzerland">Switzerland</option>
+					<option value="GBR" name="UnitedKingdomofGreatBritain" key="UnitedKingdomofGreatBritain">United Kingdom of Great Britain</option>
+				</select>
+			</div>
+
+
+			<div class="form-group">
+				<label for="exampleInputPassword1" class="required lang streetName" key="streetName"></label>
+				<input type="text" class="form-control" id="streetName">
+			</div>
+
+			<div class="form-group">
+				<label for="exampleInputPassword1" class="required lang houseNumber" key="houseNumber"></label>
+				<input type="text" class="form-control" id="houseNumber">
+			</div>
+
+			<div class='other'>
+				<div class="form-group input-w50">
+					<label for="exampleInputPassword1" class="required lang zip" key="zip"></label>
+					<input type="text" class="form-control input-w50" id="zip">
+				</div>
+				<div class="form-group input-w50">
+					<label for="exampleInputPassword1" class="required lang city" key="city"></label>
+					<input type="text" class="form-control input-w50" id="city">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="exampleInputPassword1" class="lang email" key="email"></label>
+				<input type="email" class="form-control" id="email">
+			</div>
+
+			<button type="button" class="btn btn-default lang submit" key="next"></button>
+		</form>
+	</div>
+</section>
+
+<section class="box5">
+	<h3 class="lang labelBeenCreated" key="labelBeenCreated">
+	</h3>
+	<div class="box5-container">
+		<div class="lang returnLabel" key="returnLabel"></div>
+		<h6 class="lang printLabel" key="printLabel"></h6>
+		<button type="button" class="box5-btn lang downloadPDF" key="downloadPDF" id="download" value=""></button>
+	</div>
+</section>
+<script src="~/lib/jquery/dist/jquery.min.js">
+</script>
+<script>
+	
+	(function() {
+			var postData = new Object();
+			postData.senderAddress = new Object();
+			postData.senderAddress.country = new Object();
+			var speed = 1000;
+			
+			postData.orderNumber = $('#orderNumber').val();
+			postData.receiverId = $('#receiverId').val();
+			$('#orderNumber').on('input', function() {
+				postData.orderNumber = $(this).val();
+			});
+			$('#name').on('input', function() {
+				postData.senderAddress.name = $(this).val();
+			});
+			$('#telephoneNumber').on('input', function() {
+				postData.telephoneNumber = $(this).val();
+			});
+
+			$('#country').on('change', function() {
+				postData.senderAddress.country.countryISOCode = $(this).val();
+				postData.senderAddress.country.country = $(this).find("option:selected").attr("name");
+			});
+
+			$('#streetName').on('input', function() {
+				postData.senderAddress.streetName = $(this).val();
+			});
+			$('#houseNumber').on('input', function() {
+				postData.senderAddress.houseNumber = $(this).val();
+			});
+
+			$('#zip').on('input', function() {
+				postData.senderAddress.postCode = $(this).val();
+			});
+
+			$('#city').on('input', function() {
+				postData.senderAddress.city = $(this).val();
+			});
+			
+			$('#email').on('input', function() {
+				postData.email = $(this).val();
+			});
+			
+			$("#download").click(function(){
+				var fileName = $(this).val();
+				if(fileName){
+					window.open('/api/order-return/download/dhl/' + fileName,'_blank');
+				}
+			})
+
+			//提交
+			$('.submit').on('click', function(e) {
+				e.preventDefault();
+				
+				if(!postData.receiverId){
+					alert("URL exception:Receiverid is required");
+					return ;
+				}
+
+				var flag = true;
+                $(".required").each(function(index, element) {
+                    if(!$('#'+ $(this).attr("key")).val()){
+                        $(this).html(arrLang[lang][$(this).attr("key")] + ' field is required.').addClass('red');
+                        flag = false;
+                    }
+                    else{
+                        $(this).html(arrLang[lang][$(this).attr("key")]).removeClass('red');
+                    }
+		        });
+                if(!flag){
+                    return;
+                }
+
+
+				$(".orderNumber").html('Order Number').removeClass('red');
+				$(".name").html('First and last name').removeClass('red');
+				$(".telephoneNumber").html('Phone Number').removeClass('red');
+				$(".country").html('Country').removeClass('red');
+				$(".streetName").html('Street Name').removeClass('red');
+				$(".houseNumber").html('House Number').removeClass('red');
+				$(".zip").html('ZIP Code').removeClass('red');
+				$(".city").html('City').removeClass('red');			
+
+				var emailFlag = true;
+				if(postData.email){
+					var reg =  /^([\.a-zA-Z0-9_-])+@@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+					if(!reg.test(postData.email)){
+						$('.email').html('E-Mail format error').addClass('red');
+						emailFlag = false;
+					}
+				}
+				if(emailFlag){
+					$('.email').html('E-Mail').removeClass('red');
+				}
+				else{
+					return;
+				}
+
+				$('.submit').html('Creating').prop('disabled','disabled');
+
+				$.ajax({
+					url: "/api/order-return/get-dhl-label",
+					data: JSON.stringify(postData),
+					type: "POST",
+					dataType: "json",
+					contentType: "application/json;charset=utf-8",
+					success: function(result) {
+						//成功之后...
+						$(".box2,.box3,.box4").css("display", "none");
+						$(".box5").css("display", "block").css("display", "flex");
+						windowHeight = parseInt($("body").css("height"));
+						$("html,body").animate({
+							"scrollTop": windowHeight
+						}, speed);
+						$("#download").val(result.fileName);
+					},
+					error:function(message){
+						alert("fail:" + JSON.stringify(message));
+					}
+				});
+				
+			});
+		})();
+</script>

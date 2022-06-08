@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+	  <RootNamespace>OrderReturn</RootNamespace>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	  <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+  </PropertyGroup>
+
+  <!--<ItemGroup>
+    <None Remove="File\DHLEmail.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="File\DHLEmail.html" />
+  </ItemGroup>-->
+
+	<ItemGroup>
+		<EmbeddedResource Include="File\**\*.*" />
+		<Content Remove="File\**\*.*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="10.1.1" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="5.0.14" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+		<PackageReference Include="NPOI" Version="2.5.4" />
+		<PackageReference Include="Volo.Abp.AutoMapper" Version="4.4.2" />
+		<PackageReference Include="Hangfire.Core" Version="1.7.25" />
+		<PackageReference Include="Hangfire.SqlServer" Version="1.7.25" />
+		<PackageReference Include="Volo.Abp.BackgroundJobs" Version="4.4.2" />
+		<PackageReference Include="Volo.Abp.BackgroundJobs.HangFire" Version="4.4.2" />
+		<PackageReference Include="Volo.Abp.BlobStoring.FileSystem" Version="4.4.2"></PackageReference>
+		<PackageReference Include="Volo.Abp.Caching" Version="4.4.2" />
+		<PackageReference Include="Volo.Abp.Emailing" Version="4.4.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\OrderReturn.Application.Contracts\OrderReturn.Application.Contracts.csproj" />
+	  <ProjectReference Include="..\OrderReturn.Domain\OrderReturn.Domain.csproj" />
+	</ItemGroup>
+</Project>

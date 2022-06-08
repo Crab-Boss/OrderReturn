@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+	  <RootNamespace>OrderReturn</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="4.4.2" />
+    <PackageReference Include="Volo.Abp.Core" Version="4.4.2" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\OrderReturn.Application.Contracts\OrderReturn.Application.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
